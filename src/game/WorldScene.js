@@ -270,7 +270,7 @@ export default class WorldScene extends Phaser.Scene {
 
     localStorage.setItem('save', JSON.stringify(gameState))
 
-    appSnackbar.success('Sauvegarde réussie !', 'is-top')
+    appSnackbar.success('Network saved !', 'is-top')
   }
 
   restoreSaveGame () {
