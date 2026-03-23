@@ -65,7 +65,7 @@ export default {
     this.selected = this.inventory[0].items
   },
   computed: mapState({
-    pokeballs: state => state.player.pokeballs
+    credits: state => state.player.credits
   }),
   methods: {
     getInventory () {
@@ -87,8 +87,8 @@ export default {
           ]
         },
         {
-          name: 'Pokeballs',
-          items: this.pokeballs
+          name: 'Dispatchs',
+          items: this.credits
         },
         {
           name: 'CT & CS',

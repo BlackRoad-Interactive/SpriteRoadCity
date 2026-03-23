@@ -6,10 +6,10 @@
     :persistent="true"
   >
     <!--<v-list>
-      <v-subheader>Prof. Chen</v-subheader>
+      <v-subheader>Alexa</v-subheader>
     </v-list>-->
     <v-list>
-      <v-subheader>Prof. Chen</v-subheader>
+      <v-subheader>Alexa</v-subheader>
       <v-list-item>
         <v-list-item-avatar>
           <v-icon class="grey lighten-1 white--text">message</v-icon>
@@ -18,11 +18,11 @@
         <v-list-item-content>
           <span class="dialog"></span>
 
-          <!--Hello, there! Glad to meet you! Welcome to the world of Pokémon!
-          My name is Oak. People affectionately refer to me as the Pokémon Professor. This world…
-          …is inhabited far and wide by creatures called Pokémon!
-          For some people, Pokémon are pets. Other use them for battling. As for myself…
-          I study Pokémon as a profession. But first, tell me a little about yourself.
+          <!--Hello, there! Glad to meet you! Welcome to the world of Agent!
+          My name is Oak. People affectionately refer to me as the Agent Professor. This world…
+          …is inhabited far and wide by creatures called Agent!
+          For some people, Agent are pets. Other use them for battling. As for myself…
+          I study Agent as a profession. But first, tell me a little about yourself.
           Now tell me. Are you a boy? Or are you a girl?
           Let's begin with your name. What is it? Right…
           So your name is Red.
@@ -30,8 +30,8 @@
           He's been your rival since you both were babies.
           …Erm, what was his name now? …Er, was it Blue?
           That's right! I remember now! His name is Blue!
-          Red! Your own very Pokémon legend is about to unfold!
-          A world of dreams and adventures with Pokémon awaits!
+          Red! Your own very Agent legend is about to unfold!
+          A world of dreams and adventures with Agent awaits!
           Let's go!-->
         </v-list-item-content>
         <v-list-item-action>

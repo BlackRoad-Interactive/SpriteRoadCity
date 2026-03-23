@@ -19,20 +19,20 @@ export default class Player extends MovableCharacter {
       console.log('Start dialog')
       appBus.$emit('dialog:open', {
         strings: [
-          'Bien le bonjour ! Bienvenue dans le monde incroyable des Pokémon !',
-          'Mon nom est Chen ! Les gens m\'appellent amicalement le Prof. Pokémon !',
-          'Pour certains, les Pokémon sont des animaux domestiques, pour d\'autres, ils sont un moyen de combattre.',
-          'Des Pokémon sauvages infestent les hautes herbes ! Il te faut un Pokémon pour te protéger... Tiens ! Prends ça !',
-          '<em>Reçu</em> - <strong>3 Pokémon</strong>, <strong>3 Pokéballs</strong>, <strong>2 Superballs</strong>'
+          'Bien le bonjour ! Bienvenue dans le monde incroyable des Agent !',
+          'Mon nom est Chen ! Les gens m\'appellent amicalement le Prof. Agent !',
+          'Pour certains, les Agent sont des animaux domestiques, pour d\'autres, ils sont un moyen de combattre.',
+          'Des Agent sauvages infestent les hautes herbes ! Il te faut un Agent pour te protéger... Tiens ! Prends ça !',
+          '<em>Reçu</em> - <strong>3 Agent</strong>, <strong>3 Pokéballs</strong>, <strong>2 Superballs</strong>'
         ],
         action: () => {
           this.receiveItems({
-            pokemonList: [
+            agentList: [
               { name: 'Bulbizarre' },
               { name: 'Carapuce' },
               { name: 'Salamèche' }
             ],
-            pokeballs: [
+            credits: [
               { type: 'Pokéball', quantity: 3 },
               { type: 'Superball', quantity: 2 }
             ]

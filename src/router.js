@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Battle from './views/Battle'
 import Game from './views/Game'
 import Interface from './views/Interface'
-import Pokedex from './components/interface/menu/Pokedex'
+import AgentDex from './components/interface/menu/AgentDex'
 import Profile from './components/interface/menu/Profile'
 import Inventory from './components/interface/menu/Inventory'
 import Team from './components/interface/menu/Team'
@@ -23,9 +23,9 @@ export default new Router({
           component: Interface,
           children: [
             {
-              path: 'pokedex',
-              name: 'pokedex',
-              component: Pokedex
+              path: 'agentdex',
+              name: 'agentdex',
+              component: AgentDex
             },
             {
               path: 'profile',

@@ -17,7 +17,7 @@ export default class WorldScene extends Phaser.Scene {
 
     let isGirl = Math.floor(Math.random() * 2) === 1
     this.load.spritesheet('player', require('../assets/sprites/player_18x22' + (isGirl ? '_girl' : '') + '.png'), { frameWidth: 18, frameHeight: 22 })
-    this.load.spritesheet('prof_chen', require('../assets/sprites/prof_chen_18x22.png'), { frameWidth: 18, frameHeight: 22 })
+    this.load.spritesheet('alexa_npc', require('../assets/sprites/alexa_npc_18x22.png'), { frameWidth: 18, frameHeight: 22 })
   }
 
   create () {
@@ -61,8 +61,8 @@ export default class WorldScene extends Phaser.Scene {
     this.physics.world.bounds.height = map.heightInPixels
 
     // Spawn PNJs
-    const profChenSpawnPoint = map.findObject('Objects', obj => obj.name === 'Prof. Chen')
-    this.profChen = new MovableCharacter(this, profChenSpawnPoint.x, profChenSpawnPoint.y, 'prof_chen')
+    const alexaNpcSpawnPoint = map.findObject('Objects', obj => obj.name === 'Alexa')
+    this.alexaNpc = new MovableCharacter(this, alexaNpcSpawnPoint.x, alexaNpcSpawnPoint.y, 'alexa_npc')
 
     camera.startFollow(this.player)
     camera.roundPixels = true
@@ -87,7 +87,7 @@ export default class WorldScene extends Phaser.Scene {
     })
 
     // this.map.setTileLocationCallback(73, 200, 1, 1, () => {
-    //   console.log('Leaving Pallet Town!')
+    //   console.log('Leaving Gateway District!')
     // })
 
     // ===== Handle zones =====
@@ -209,7 +209,7 @@ export default class WorldScene extends Phaser.Scene {
       }
     }
 
-    this.profChen.updateCaseOccupation()
+    this.alexaNpc.updateCaseOccupation()
 
     let nextTile = this.player.getNextTile()
     if (!nextTile.isOccupied && store.state.player.state.isInDialog) {
@@ -261,8 +261,8 @@ export default class WorldScene extends Phaser.Scene {
 
         faces: this.player.faces,
 
-        pokemonList: store.state.player.pokemonList,
-        pokeballs: store.state.player.pokeballs
+        agentList: store.state.player.agentList,
+        credits: store.state.player.credits
       }
     }
 
@@ -284,8 +284,8 @@ export default class WorldScene extends Phaser.Scene {
       this.player.setFrame(this.player.getIdleFrame())
 
       store.commit('player/updateState', {
-        pokemonList: gameState.player.pokemonList,
-        pokeballs: gameState.player.pokeballs
+        agentList: gameState.player.agentList,
+        credits: gameState.player.credits
       })
     }
   }

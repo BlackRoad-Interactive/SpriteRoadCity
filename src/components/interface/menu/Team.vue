@@ -3,10 +3,10 @@
 
     <v-container fluid grid-list-md>
       <v-layout wrap>
-        <v-flex v-for="(pokemon, index) in pokeTeam" :key="index" xs6 md4 lg3 xl2>
+        <v-flex v-for="(agent, index) in pokeTeam" :key="index" xs6 md4 lg3 xl2>
           <v-card>
             <v-img
-              :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.pokemon.index + 1}.png`"
+              :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/agent/${agent.agent.index + 1}.png`"
               contain
               aspect-ratio="1"
               max-height="96"
@@ -16,19 +16,19 @@
               <div
                 class="headline text-xs-center"
                 style="text-transform: capitalize; width: 100%"
-              >{{ pokemon.pokemon.name }}
+              >{{ agent.agent.name }}
               </div>
             </v-card-title>
             <v-divider light></v-divider>
             <v-card-text>
-              <div>Niveau : {{ pokemon.stat.level }}</div>
+              <div>Niveau : {{ agent.stat.level }}</div>
               <v-progress-linear
                 background-color="error"
                 color="success"
-                :value="(pokemon.stat.lp / pokemon.stat.lpMax * 100)"
+                :value="(agent.stat.lp / agent.stat.lpMax * 100)"
               ></v-progress-linear>
-              <div v-if="pokemon.stat.status">
-                {{pokemon.stat.status.effect}}
+              <div v-if="agent.stat.status">
+                {{agent.stat.status.effect}}
               </div>
             </v-card-text>
           </v-card>
@@ -57,7 +57,7 @@ export default {
     getTeam () {
       this.pokeTeam = [
         {
-          pokemon: {
+          agent: {
             index: 5,
             name: 'josé'
           },
@@ -69,7 +69,7 @@ export default {
           }
         },
         {
-          pokemon: {
+          agent: {
             index: 12,
             name: 'Mathieu'
           },
@@ -86,7 +86,7 @@ export default {
       ]
     },
     goTo (index) {
-      this.$router.push('pokemon/' + index)
+      this.$router.push('agent/' + index)
     }
   }
 }

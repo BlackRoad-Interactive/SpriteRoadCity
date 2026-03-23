@@ -31,8 +31,8 @@ export default {
     return {
       menuItems: [
         {
-          title: 'Pokémon',
-          routeName: 'pokedex'
+          title: 'Agent',
+          routeName: 'agentdex'
         },
         {
           title: 'Sac',

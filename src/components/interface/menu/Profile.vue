@@ -15,7 +15,7 @@
             <div>
               <div>Nom: {{ profile.name }} Sexe: {{ profile.sexe }}</div>
               <div>Argents: {{ profile.money }}</div>
-              <div>Pokémons : {{ profile.pokemons }}</div>
+              <div>Agents : {{ profile.agents }}</div>
             </div>
           </v-card-title>
         </v-flex>
@@ -64,7 +64,7 @@ export default {
         profilePicture: 'https://www.pokepedia.fr/images/archive/f/fe/20101114200508%21Sprite_1_r_Red.png',
         money: 65000,
         sexe: '??',
-        pokemons: 25,
+        agents: 25,
         badges: [
           {
             name: 'Badge Roche',

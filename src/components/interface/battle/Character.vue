@@ -4,37 +4,37 @@
             <transition
             name="slide-fade"
             mode="out-in">
-              <v-flex md3 pa-0 align-self-baseline class="pokemon-infos" :key="pokemonIndex">
+              <v-flex md3 pa-0 align-self-baseline class="agent-infos" :key="agentIndex">
                 <v-flex md12>
-                  <v-flex md12 py-1 class="pokeball-list" v-if="pokemonNb > 0">
+                  <v-flex md12 py-1 class="dispatch-list" v-if="agentNb > 0">
                     <span
-                    v-for="index in (pokemonNb - pokemonKo)"
+                    v-for="index in (agentNb - agentKo)"
                     :key="index"
-                    :style="{ backgroundImage: 'url(' + pokeballIcn + ')' }"
+                    :style="{ backgroundImage: 'url(' + dispatchIcn + ')' }"
                     class="active"
                     >
                     </span>
                     <span
-                    v-for="index in pokemonKo"
+                    v-for="index in agentKo"
                     :key="'B' + index"
-                    :style="{ backgroundImage: 'url(' + pokeballIcn + ')' }"
+                    :style="{ backgroundImage: 'url(' + dispatchIcn + ')' }"
                     class="ko"
                     >
                     </span>
                     <span
-                    v-for="index in (6 - pokemonNb)"
+                    v-for="index in (6 - agentNb)"
                     :key="'C' + index"
-                    :style="{ backgroundImage: 'url(' + pokeballIcn + ')' }"
+                    :style="{ backgroundImage: 'url(' + dispatchIcn + ')' }"
                     class="disabled"
                     >
                     </span>
                   </v-flex>
-                  <v-flex md12 py-1 class="pokemon-name">
+                  <v-flex md12 py-1 class="agent-name">
                     <transition name="slide-fade" mode="out-in">
-                      <span class="name" v-if="pokemonName" :key="pokemonName">{{ this.pokemonName }}</span>
+                      <span class="name" v-if="agentName" :key="agentName">{{ this.agentName }}</span>
                     </transition>
                     <transition name="slide-fade" mode="out-in">
-                      <span class="level" v-if="pokemonLevel" :key="pokemonLevel">N.{{ this.pokemonLevel }}</span>
+                      <span class="level" v-if="agentLevel" :key="agentLevel">N.{{ this.agentLevel }}</span>
                     </transition>
                   </v-flex>
                   <v-flex md10 pa-0 class="life-bar">
@@ -80,7 +80,7 @@
                 </v-flex>
               </v-flex>
             </transition>
-              <v-flex py-5 class="pokemon-sprite">
+              <v-flex py-5 class="agent-sprite">
                 <div class="sprite-container" :class="{ shake: spriteShake }">
                   <img :src="this.spriteUrl" :class="[componentType === 'player' ? 'back-sprite' : 'front-sprite', { loaded: spriteLoaded }]">
                 </div>
@@ -95,7 +95,7 @@
 <script>
 import ICountUp from 'vue-countup-v2'
 
-import PokeballIcn from '@/assets/icons/poke_ball.png'
+import DispatchIcn from '@/assets/icons/poke_ball.png'
 
 import GrassFront from '@/assets/battlebg/grass-front.png'
 
@@ -106,15 +106,15 @@ export default {
   },
   props: {
     componentType: String,
-    pokemonIndex: Number,
+    agentIndex: Number,
     remainingHp: Number,
     totalHp: Number,
     remainingXp: Number,
     totalXp: Number,
-    pokemonNb: Number,
-    pokemonKo: Number,
-    pokemonSurname: String,
-    pokemonLevel: Number
+    agentNb: Number,
+    agentKo: Number,
+    agentSurname: String,
+    agentLevel: Number
   },
   data () {
     return {
@@ -123,8 +123,8 @@ export default {
       spriteUrl: null,
       ground: GrassFront,
       currentColor: 'green',
-      pokeballIcn: PokeballIcn,
-      pokemonName: false,
+      dispatchIcn: DispatchIcn,
+      agentName: false,
       totalCountUpOptions: {
         startVal: this.totalHp,
         useEasing: true,
@@ -140,10 +140,10 @@ export default {
   created () {
   },
   mounted () {
-    const pokemonId = this.componentType === 'player' ? (JSON.parse(localStorage.playerPokemonsList))[this.pokemonIndex].pokemon.id : (JSON.parse(localStorage.opponentPokemonsList))[this.pokemonIndex].pokemon.id
+    const agentId = this.componentType === 'player' ? (JSON.parse(localStorage.playerAgentsList))[this.agentIndex].agent.id : (JSON.parse(localStorage.opponentAgentsList))[this.agentIndex].agent.id
     this.getCurrentColor(this.remainingHp, this.totalHp)
-    this.getName(pokemonId)
-    this.getSprite(pokemonId)
+    this.getName(agentId)
+    this.getSprite(agentId)
   },
   watch: {
     remainingHp (newVal, oldVal) {
@@ -155,29 +155,29 @@ export default {
       this.getCurrentColor(this.remainingHp, newVal)
       this.totalCountUpUpdate(newVal)
     },
-    pokemonIndex (newVal) {
-      const pokemonId = this.componentType === 'player' ? (JSON.parse(localStorage.playerPokemonsList))[newVal].pokemon.id : (JSON.parse(localStorage.opponentPokemonsList))[newVal].pokemon.id
-      this.getName(pokemonId)
-      this.getSprite(pokemonId)
+    agentIndex (newVal) {
+      const agentId = this.componentType === 'player' ? (JSON.parse(localStorage.playerAgentsList))[newVal].agent.id : (JSON.parse(localStorage.opponentAgentsList))[newVal].agent.id
+      this.getName(agentId)
+      this.getSprite(agentId)
     }
   },
   methods: {
-    getName (pokemonId) {
-      if (!(this.pokemonSurname === '' || this.pokemonSurname === undefined)) {
-        this.pokemonName = this.pokemonSurname
+    getName (agentId) {
+      if (!(this.agentSurname === '' || this.agentSurname === undefined)) {
+        this.agentName = this.agentSurname
         return
       }
-      var pokemonApiUrl = 'https://pokeapi.co/api/v2/pokemon-species/' + pokemonId
-      this.$http.get(pokemonApiUrl)
+      var agentApiUrl = 'https://pokeapi.co/api/v2/agent-species/' + agentId
+      this.$http.get(agentApiUrl)
         .then(async res => {
-          this.pokemonName = res.data.names.filter(value => value.language.name.includes('fr'))[0].name
+          this.agentName = res.data.names.filter(value => value.language.name.includes('fr'))[0].name
         })
     },
-    getSprite (pokemonId) {
+    getSprite (agentId) {
       this.spriteLoaded = false
       var isBack = this.componentType === 'player' ? 'back/' : ''
       var img = new Image()
-      var url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + isBack + pokemonId + '.png'
+      var url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/agent/' + isBack + agentId + '.png'
       img.src = url
       img.onload = setTimeout(function () {
         this.spriteUrl = url
@@ -216,7 +216,7 @@ export default {
 
 <style lang="scss">
 
-.pokemon-infos {
+.agent-infos {
   position: relative;
   > div:nth-child(1) {
     background-color: #FFF;
@@ -224,7 +224,7 @@ export default {
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
-  .pokeball-list {
+  .dispatch-list {
     max-height: 24px;
     > span {
       opacity: 1;
@@ -263,7 +263,7 @@ export default {
       }
     }
   }
-  .pokemon-name {
+  .agent-name {
     min-height: 32px;
     .level {
       float: right;
@@ -315,7 +315,7 @@ export default {
   }
 }
 
-.pokemon-sprite {
+.agent-sprite {
   text-align: center;
   z-index: 0;
   position: relative;

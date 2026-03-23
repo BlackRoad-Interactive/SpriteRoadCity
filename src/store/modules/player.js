@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
 const state = () => ({
-  pokemonList: [],
-  pokeballs: [],
+  agentList: [],
+  credits: [],
   state: {
     isInDialog: false
   }
@@ -10,12 +10,12 @@ const state = () => ({
 
 const mutations = {
   updateState (state, payload) {
-    if (payload.pokemonList) {
-      Vue.set(state, 'pokemonList', payload.pokemonList)
+    if (payload.agentList) {
+      Vue.set(state, 'agentList', payload.agentList)
     }
 
-    if (payload.pokeballs) {
-      Vue.set(state, 'pokeballs', payload.pokeballs)
+    if (payload.credits) {
+      Vue.set(state, 'credits', payload.credits)
     }
 
     if (payload.state) {
@@ -23,8 +23,8 @@ const mutations = {
     }
   },
   emptyState (state) {
-    Vue.set(state, 'pokemonList', [])
-    Vue.set(state, 'pokeballs', [])
+    Vue.set(state, 'agentList', [])
+    Vue.set(state, 'credits', [])
     Vue.set(state, 'state', {
       isInDialog: false
     })
@@ -32,8 +32,8 @@ const mutations = {
 }
 
 const getters = {
-  pokemonList: state => {
-    return state.pokemonList
+  agentList: state => {
+    return state.agentList
   }
 }
 

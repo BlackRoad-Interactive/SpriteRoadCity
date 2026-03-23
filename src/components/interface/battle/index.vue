@@ -3,30 +3,30 @@
     <v-col md="12" style="z-index: 0;">
       <Character
       component-type="opponent"
-      :pokemon-index="opponentPokemonsSelected"
-      :remaining-hp="opponentPokemonHp"
-      :total-hp="opponentPokemonHpMax"
-      :remaining-xp="opponentPokemonXp"
-      :total-xp="opponentPokemonXpMax"
-      :pokemon-nb="opponentPokemonNb"
-      :pokemon-ko="opponentPokemonKo"
-      :pokemon-surname="opponentPokemonSurname"
-      :pokemon-level="opponentPokemonLevel"
+      :agent-index="opponentAgentsSelected"
+      :remaining-hp="opponentAgentHp"
+      :total-hp="opponentAgentHpMax"
+      :remaining-xp="opponentAgentXp"
+      :total-xp="opponentAgentXpMax"
+      :agent-nb="opponentAgentNb"
+      :agent-ko="opponentAgentKo"
+      :agent-surname="opponentAgentSurname"
+      :agent-level="opponentAgentLevel"
       />
     </v-col>
     <v-spacer></v-spacer>
     <v-col md="12" style="z-index: 0;">
       <Character
       component-type="player"
-      :pokemon-index="playerPokemonsSelected"
-      :remaining-hp="playerPokemonHp"
-      :total-hp="playerPokemonHpMax"
-      :remaining-xp="playerPokemonXp"
-      :total-xp="playerPokemonXpMax"
-      :pokemon-nb="playerPokemonNb"
-      :pokemon-ko="playerPokemonKo"
-      :pokemon-surname="playerPokemonSurname"
-      :pokemon-level="playerPokemonLevel"
+      :agent-index="playerAgentsSelected"
+      :remaining-hp="playerAgentHp"
+      :total-hp="playerAgentHpMax"
+      :remaining-xp="playerAgentXp"
+      :total-xp="playerAgentXpMax"
+      :agent-nb="playerAgentNb"
+      :agent-ko="playerAgentKo"
+      :agent-surname="playerAgentSurname"
+      :agent-level="playerAgentLevel"
       />
     </v-col>
     <v-col md="12" class="moves-buttons" :class="{ loading: !(movesLoaded) }">
@@ -38,7 +38,7 @@
                 <v-col
                 class="battle-btn"
                 :class="{ disabled: movesLaunched }"
-                v-for="(move, index) in playerPokemonMoves"
+                v-for="(move, index) in playerAgentMoves"
                 :key="index"
                 md="6">
                     <v-btn text
@@ -88,9 +88,9 @@ export default {
     return {
       movesLoaded: false,
       movesLaunched: false,
-      playerPokemonsList: [
+      playerAgentsList: [
         {
-          pokemon: {
+          agent: {
             id: 1,
             surname: 'Jean-Joslin'
           },
@@ -122,7 +122,7 @@ export default {
           ]
         },
         {
-          pokemon: {
+          agent: {
             id: 6,
             surname: ''
           },
@@ -146,7 +146,7 @@ export default {
           ]
         },
         {
-          pokemon: {
+          agent: {
             id: 6,
             surname: 'Jean-Ko'
           },
@@ -170,19 +170,19 @@ export default {
           ]
         }
       ],
-      playerPokemonMoves: [],
-      playerPokemonsSelected: 0,
-      playerPokemonHp: null,
-      playerPokemonHpMax: null,
-      playerPokemonXp: null,
-      playerPokemonXpMax: null,
-      playerPokemonNb: null,
-      playerPokemonKo: null,
-      playerPokemonSurname: null,
-      playerPokemonLevel: null,
-      opponentPokemonsList: [
+      playerAgentMoves: [],
+      playerAgentsSelected: 0,
+      playerAgentHp: null,
+      playerAgentHpMax: null,
+      playerAgentXp: null,
+      playerAgentXpMax: null,
+      playerAgentNb: null,
+      playerAgentKo: null,
+      playerAgentSurname: null,
+      playerAgentLevel: null,
+      opponentAgentsList: [
         {
-          pokemon: {
+          agent: {
             id: 45,
             surname: ''
           },
@@ -214,7 +214,7 @@ export default {
           ]
         },
         {
-          pokemon: {
+          agent: {
             id: 77,
             surname: 'Roger'
           },
@@ -238,119 +238,119 @@ export default {
           ]
         }
       ],
-      opponentPokemonMoves: [],
-      opponentPokemonsSelected: 0,
-      opponentPokemonHp: null,
-      opponentPokemonHpMax: null,
-      opponentPokemonXp: null,
-      opponentPokemonXpMax: null,
-      opponentPokemonNb: null,
-      opponentPokemonKo: null,
-      opponentPokemonSurname: null,
-      opponentPokemonLevel: null,
-      localPlayerPokemonsList: null,
-      localOpponentPokemonsList: null
+      opponentAgentMoves: [],
+      opponentAgentsSelected: 0,
+      opponentAgentHp: null,
+      opponentAgentHpMax: null,
+      opponentAgentXp: null,
+      opponentAgentXpMax: null,
+      opponentAgentNb: null,
+      opponentAgentKo: null,
+      opponentAgentSurname: null,
+      opponentAgentLevel: null,
+      localPlayerAgentsList: null,
+      localOpponentAgentsList: null
     }
   },
   created () {
-    // Setup pokemon list
-    if (!(localStorage.playerPokemonsList)) {
-      localStorage.playerPokemonsList = (JSON.stringify(this.playerPokemonsList))
+    // Setup agent list
+    if (!(localStorage.playerAgentsList)) {
+      localStorage.playerAgentsList = (JSON.stringify(this.playerAgentsList))
     }
-    localStorage.opponentPokemonsList = (JSON.stringify(this.opponentPokemonsList))
+    localStorage.opponentAgentsList = (JSON.stringify(this.opponentAgentsList))
 
-    this.localPlayerPokemonsList = (JSON.parse(localStorage.playerPokemonsList))
-    this.localOpponentPokemonsList = (JSON.parse(localStorage.opponentPokemonsList))
+    this.localPlayerAgentsList = (JSON.parse(localStorage.playerAgentsList))
+    this.localOpponentAgentsList = (JSON.parse(localStorage.opponentAgentsList))
 
-    // Setup Number of pokemons
-    this.playerPokemonNb = this.localPlayerPokemonsList.length
-    this.playerPokemonKo = this.localPlayerPokemonsList.filter(value => value.stats.hp <= 0).length
-    this.opponentPokemonNb = this.localOpponentPokemonsList.length
-    this.opponentPokemonKo = this.localOpponentPokemonsList.filter(value => value.stats.hp <= 0).length
+    // Setup Number of agents
+    this.playerAgentNb = this.localPlayerAgentsList.length
+    this.playerAgentKo = this.localPlayerAgentsList.filter(value => value.stats.hp <= 0).length
+    this.opponentAgentNb = this.localOpponentAgentsList.length
+    this.opponentAgentKo = this.localOpponentAgentsList.filter(value => value.stats.hp <= 0).length
 
-    // Setup selected pokemons surnames
-    this.playerPokemonSurname = this.localPlayerPokemonsList[this.playerPokemonsSelected].pokemon.surname
-    this.opponentPokemonSurname = this.localOpponentPokemonsList[this.opponentPokemonsSelected].pokemon.surname
+    // Setup selected agents surnames
+    this.playerAgentSurname = this.localPlayerAgentsList[this.playerAgentsSelected].agent.surname
+    this.opponentAgentSurname = this.localOpponentAgentsList[this.opponentAgentsSelected].agent.surname
 
-    // Setup selected pokemons level
-    this.playerPokemonLevel = this.localPlayerPokemonsList[this.playerPokemonsSelected].stats.level
-    this.opponentPokemonLevel = this.localOpponentPokemonsList[this.opponentPokemonsSelected].stats.level
+    // Setup selected agents level
+    this.playerAgentLevel = this.localPlayerAgentsList[this.playerAgentsSelected].stats.level
+    this.opponentAgentLevel = this.localOpponentAgentsList[this.opponentAgentsSelected].stats.level
 
-    // Setup selected pokemons Hp
-    this.playerPokemonHpMax = this.localPlayerPokemonsList[this.playerPokemonsSelected].stats.hpMax
-    this.playerPokemonHp = this.localPlayerPokemonsList[this.playerPokemonsSelected].stats.hp
-    this.opponentPokemonHpMax = this.localOpponentPokemonsList[this.opponentPokemonsSelected].stats.hpMax
-    this.opponentPokemonHp = this.localOpponentPokemonsList[this.opponentPokemonsSelected].stats.hp
+    // Setup selected agents Hp
+    this.playerAgentHpMax = this.localPlayerAgentsList[this.playerAgentsSelected].stats.hpMax
+    this.playerAgentHp = this.localPlayerAgentsList[this.playerAgentsSelected].stats.hp
+    this.opponentAgentHpMax = this.localOpponentAgentsList[this.opponentAgentsSelected].stats.hpMax
+    this.opponentAgentHp = this.localOpponentAgentsList[this.opponentAgentsSelected].stats.hp
 
-    // Setup selected pokemons Xp
-    this.playerPokemonXpMax = this.localPlayerPokemonsList[this.playerPokemonsSelected].stats.xpMax
-    this.playerPokemonXp = this.localPlayerPokemonsList[this.playerPokemonsSelected].stats.xp
-    this.opponentPokemonXpMax = this.localOpponentPokemonsList[this.opponentPokemonsSelected].stats.xpMax
-    this.opponentPokemonXp = this.localOpponentPokemonsList[this.opponentPokemonsSelected].stats.xp
+    // Setup selected agents Xp
+    this.playerAgentXpMax = this.localPlayerAgentsList[this.playerAgentsSelected].stats.xpMax
+    this.playerAgentXp = this.localPlayerAgentsList[this.playerAgentsSelected].stats.xp
+    this.opponentAgentXpMax = this.localOpponentAgentsList[this.opponentAgentsSelected].stats.xpMax
+    this.opponentAgentXp = this.localOpponentAgentsList[this.opponentAgentsSelected].stats.xp
   },
   mounted () {
-    this.getPokemonMoves(this.localPlayerPokemonsList, this.playerPokemonsSelected).then((moves) => {
+    this.getAgentMoves(this.localPlayerAgentsList, this.playerAgentsSelected).then((moves) => {
       this.movesLoaded = true
-      this.playerPokemonMoves = moves
+      this.playerAgentMoves = moves
       console.group('Player moves')
       console.table(JSON.parse(JSON.stringify(moves)))
       console.groupEnd()
     })
-    this.getPokemonMoves(this.localOpponentPokemonsList, this.opponentPokemonsSelected).then((moves) => {
-      this.opponentPokemonMoves = moves
+    this.getAgentMoves(this.localOpponentAgentsList, this.opponentAgentsSelected).then((moves) => {
+      this.opponentAgentMoves = moves
       console.group('Opponent moves')
       console.table(JSON.parse(JSON.stringify(moves)))
       console.groupEnd()
     })
   },
   watch: {
-    playerPokemonsSelected (pkmnSelected) {
+    playerAgentsSelected (pkmnSelected) {
       this.movesLoaded = false
-      this.playerPokemonMoves = []
-      const json = this.localPlayerPokemonsList
-      this.getPokemonMoves(json, pkmnSelected).then((moves) => {
+      this.playerAgentMoves = []
+      const json = this.localPlayerAgentsList
+      this.getAgentMoves(json, pkmnSelected).then((moves) => {
         this.movesLoaded = true
-        this.playerPokemonMoves = moves
+        this.playerAgentMoves = moves
         console.group('Player moves')
         console.table(JSON.parse(JSON.stringify(moves)))
         console.groupEnd()
       })
-      this.playerPokemonHpMax = json[pkmnSelected].stats.hpMax
-      this.playerPokemonHp = json[pkmnSelected].stats.hp
-      this.playerPokemonXpMax = json[pkmnSelected].stats.xpMax
-      this.playerPokemonXp = json[pkmnSelected].stats.xp
-      this.playerPokemonSurname = json[pkmnSelected].pokemon.surname
-      this.playerPokemonLevel = json[pkmnSelected].stats.level
+      this.playerAgentHpMax = json[pkmnSelected].stats.hpMax
+      this.playerAgentHp = json[pkmnSelected].stats.hp
+      this.playerAgentXpMax = json[pkmnSelected].stats.xpMax
+      this.playerAgentXp = json[pkmnSelected].stats.xp
+      this.playerAgentSurname = json[pkmnSelected].agent.surname
+      this.playerAgentLevel = json[pkmnSelected].stats.level
     },
-    opponentPokemonsSelected (pkmnSelected) {
-      const json = this.localOpponentPokemonsList
-      this.getPokemonMoves(json, pkmnSelected).then((moves) => {
-        this.opponentPokemonMoves = moves
+    opponentAgentsSelected (pkmnSelected) {
+      const json = this.localOpponentAgentsList
+      this.getAgentMoves(json, pkmnSelected).then((moves) => {
+        this.opponentAgentMoves = moves
         console.group('Opponent moves')
         console.table(JSON.parse(JSON.stringify(moves)))
         console.groupEnd()
       })
-      this.opponentPokemonHpMax = json[pkmnSelected].stats.hpMax
-      this.opponentPokemonHp = json[pkmnSelected].stats.hp
-      this.opponentPokemonXpMax = json[pkmnSelected].stats.xpMax
-      this.opponentPokemonXp = json[pkmnSelected].stats.xp
-      this.opponentPokemonSurname = json[pkmnSelected].pokemon.surname
-      this.opponentPokemonLevel = json[pkmnSelected].stats.level
+      this.opponentAgentHpMax = json[pkmnSelected].stats.hpMax
+      this.opponentAgentHp = json[pkmnSelected].stats.hp
+      this.opponentAgentXpMax = json[pkmnSelected].stats.xpMax
+      this.opponentAgentXp = json[pkmnSelected].stats.xp
+      this.opponentAgentSurname = json[pkmnSelected].agent.surname
+      this.opponentAgentLevel = json[pkmnSelected].stats.level
     }
   },
   methods: {
-    getPokemonMoves (pkmnList, pkmnSelected) {
+    getAgentMoves (pkmnList, pkmnSelected) {
       return new Promise(async resolve => {
         var movesTemp = []
         for (var index in pkmnList[pkmnSelected].moveset) {
           var moveApiUrl = 'https://pokeapi.co/api/v2/move/' + pkmnList[pkmnSelected].moveset[index].id
-          var moveDatas = await this.setPokemonMoves(index, moveApiUrl, pkmnList, pkmnSelected, 'fr')
+          var moveDatas = await this.setAgentMoves(index, moveApiUrl, pkmnList, pkmnSelected, 'fr')
           movesTemp.push(moveDatas)
         }
         resolve(movesTemp)
       })
     },
-    setPokemonMoves (index, moveApiUrl, pkmnList, pkmnSelected, lang) {
+    setAgentMoves (index, moveApiUrl, pkmnList, pkmnSelected, lang) {
       let moveDatas
       return new Promise(resolve => {
         this.$http.get(moveApiUrl)
@@ -431,14 +431,14 @@ export default {
     },
     triggerMove (event, index) {
       this.movesLaunched = true
-      for (var val in this.playerPokemonMoves) {
+      for (var val in this.playerAgentMoves) {
         if (parseInt(val) === index) {
-          var ppNewValue = parseInt(this.playerPokemonMoves[val].ppLeft) - 1
-          var pkmnList = this.localPlayerPokemonsList
-          this.playerPokemonMoves[val].ppLeft = ppNewValue
-          pkmnList[this.playerPokemonsSelected].moveset[index].pp = ppNewValue
-          localStorage.playerPokemonsList = (JSON.stringify(pkmnList))
-          console.log('Pikatchu, attaque ' + this.playerPokemonMoves[val].name + ' !!!!!!!')
+          var ppNewValue = parseInt(this.playerAgentMoves[val].ppLeft) - 1
+          var pkmnList = this.localPlayerAgentsList
+          this.playerAgentMoves[val].ppLeft = ppNewValue
+          pkmnList[this.playerAgentsSelected].moveset[index].pp = ppNewValue
+          localStorage.playerAgentsList = (JSON.stringify(pkmnList))
+          console.log('Pikatchu, attaque ' + this.playerAgentMoves[val].name + ' !!!!!!!')
         }
       }
       // TODO: calculer les dégats, appliquer les dégats à l'ennemi
